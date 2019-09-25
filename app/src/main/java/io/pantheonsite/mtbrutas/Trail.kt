@@ -19,8 +19,9 @@ class Trail(trailJson: JsonObject?) : Serializable {
             region = trailJson.get(REGION).asString
             code = trailJson.get(CODE).asString
             route = trailJson.get(TRAIL_ROUTE).asString
-            image = trailJson.get(IMAGE_ROUTE).asString
-        }catch (e: Exception){
+            val image_path = trailJson.get(IMAGE_ROUTE).asString
+            image = "http://dev-mtb-rutas.pantheonsite.io/${image_path}"
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

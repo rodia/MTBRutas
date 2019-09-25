@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("all")
+    @GET("routes/?_format=json")
     fun getAllTrails(): Call<JsonArray>
 }

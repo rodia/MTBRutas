@@ -13,9 +13,6 @@ class ApiAdapter {
             val url = chain.request()
                 .url()
                 .newBuilder()
-//                .addPathSegment("routes")
-                .fragment("routes")
-                .addQueryParameter("_format", "json")
                 .build()
 
             val newRequest = chain.request()
@@ -27,7 +24,8 @@ class ApiAdapter {
         }
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(authInterceptor).build()
+            .addInterceptor(authInterceptor)
+            .build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(urlApi)
