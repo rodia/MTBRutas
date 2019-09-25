@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MTB Rutas</string>
+    <string name="trail_list">Trail List</string>
+    <string name="trails_description">Trails</string>
+</resources>
