@@ -32,8 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         refreshLayout!!.setOnRefreshListener {
             trails.clear()
-            loadTrailList(trails, trailList)
-            refreshLayout!!.isRefreshing = false
+            loadTrailList(trails, trailList, refreshLayout!!)
 
             Toast.makeText(
                 applicationContext,
@@ -41,13 +40,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        loadTrailList(trails, trailList)
+        loadTrailList(trails, trailList, refreshLayout!!)
         //CONTROLLER
     }
 
     private fun loadTrailList(
         trails: ArrayList<Trail>,
-        trailList: RecyclerView
+        trailList: RecyclerView,
+        refreshLayout: SwipeRefreshLayout
     ) {
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 //VIEW
                 trailList.adapter = RecyclerTrailAdapter(trails, R.layout.card_trail)
+                refreshLayout.isRefreshing = false
                 //VIEW
             }
         })
