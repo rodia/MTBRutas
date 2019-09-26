@@ -3,8 +3,10 @@ package io.pantheonsite.mtbrutas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.pantheonsite.mtbrutas.model.ApiAdapter
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
@@ -13,6 +15,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private var refreshLayout: SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +24,31 @@ class MainActivity : AppCompatActivity() {
         //VIEW
         val trailList: RecyclerView = findViewById(R.id.rvCoupons) //UI
         trailList.layoutManager = LinearLayoutManager(this)
-        val countries = ArrayList<Trail>()
+        val trails = ArrayList<Trail>()
         //VIEW
 
         //CONTROLLER
+        refreshLayout = findViewById(R.id.swiperefresh)
+
+        refreshLayout!!.setOnRefreshListener {
+            trails.clear()
+            loadTrailList(trails, trailList)
+            refreshLayout!!.isRefreshing = false
+
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.updated_trail_list),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        loadTrailList(trails, trailList)
+        //CONTROLLER
+    }
+
+    private fun loadTrailList(
+        trails: ArrayList<Trail>,
+        trailList: RecyclerView
+    ) {
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getAllTrails()
@@ -41,13 +65,12 @@ class MainActivity : AppCompatActivity() {
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     val jsonObject = jsonElement.asJsonObject
                     val trail = Trail(jsonObject)
-                    countries.add(trail)
+                    trails.add(trail)
                 }
                 //VIEW
-                trailList.adapter = RecyclerTrailAdapter(countries, R.layout.card_trail)
+                trailList.adapter = RecyclerTrailAdapter(trails, R.layout.card_trail)
                 //VIEW
             }
         })
-        //CONTROLLER
     }
 }

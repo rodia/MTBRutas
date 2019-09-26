@@ -1,7 +1,7 @@
 package io.pantheonsite.mtbrutas
 
+import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso
 class RecyclerTrailAdapter(var countries : ArrayList<Trail>, var resource: Int) : RecyclerView.Adapter<RecyclerTrailAdapter.CardCountryHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CardCountryHolder {
-        var view: View = LayoutInflater.from(p0!!.context).inflate(resource, p0, false)
+        val view: View = LayoutInflater.from(p0.context).inflate(resource, p0, false)
         return CardCountryHolder(view)
     }
 
@@ -21,7 +21,7 @@ class RecyclerTrailAdapter(var countries : ArrayList<Trail>, var resource: Int) 
     }
 
     override fun onBindViewHolder(p0: CardCountryHolder, p1: Int) {
-        var country = countries.get(p1)
+        val country = countries.get(p1)
         p0.setDataCard(country)
     }
 
@@ -38,18 +38,16 @@ class RecyclerTrailAdapter(var countries : ArrayList<Trail>, var resource: Int) 
 
         fun setDataCard(trail: Trail){
             this.trail = trail
-            Log.i("FLAG URL: ", trail.image)
             Picasso.get().load(trail.image).resize(520, 520).centerCrop().into(img_view_trail)
             text_view_name.setText(trail.name)
             text_view_distance.setText(trail.distance)
         }
 
         override fun onClick(v: View) {
-            Log.i("CLICK Country: ", trail?.name)
-//            val context = v.context
-//            val showPhotoIntent = Intent(context, CountryDetailActivity::class.java)
-//            showPhotoIntent.putExtra("COUNTRY", trail)
-//            context.startActivity(showPhotoIntent)
+            val context = v.context
+            val showPhotoIntent = Intent(context, MapsActivity::class.java)
+            showPhotoIntent.putExtra("TRAIL", trail)
+            context.startActivity(showPhotoIntent)
         }
     }
 }

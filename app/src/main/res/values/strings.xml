@@ -3,4 +3,5 @@
     <string name="trail_list">Trail List</string>
     <string name="trails_description">Trails</string>
     <string name="title_activity_maps">Trail on the Map</string>
+    <string name="updated_trail_list">Updated Trail List!</string>
 </resources>
