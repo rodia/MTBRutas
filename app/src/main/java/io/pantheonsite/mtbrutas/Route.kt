@@ -9,7 +9,7 @@ class Route(trailRoute: String) : Serializable {
     init {
         val stringArray = trailRoute.split("|").map { it.trim() }
         stringArray.forEach{ it ->
-            val row = it.split(",").map{it.trim()}
+            val row = it.split(",").map{ it.trim() }
             route.add(LatLng(row[0].toDouble(), row[1].toDouble()))
         }
     }
