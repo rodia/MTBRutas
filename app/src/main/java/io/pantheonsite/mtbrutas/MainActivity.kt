@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //VIEW
-        val trailList: RecyclerView = findViewById(R.id.rvCoupons) //UI
+        val trailList: RecyclerView = findViewById(R.id.rvCoupons)
         trailList.layoutManager = LinearLayoutManager(this)
         val trails = ArrayList<Trail>()
         //VIEW
