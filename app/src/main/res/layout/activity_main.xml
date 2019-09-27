@@ -54,7 +54,7 @@
             app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:srcCompat="@mipmap/trail" />
+            app:srcCompat="@mipmap/bolivia_map" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCoupons"
